@@ -313,15 +313,15 @@
             apply: function () {
               if (!this.sourceInfo.sortableScope.cloning) {
                 // if not cloning, remove the item from the source model.
-                this.sourceInfo.sortableScope.removeItem(this.sourceInfo.index);
+                //this.sourceInfo.sortableScope.removeItem(this.sourceInfo.index);
 
                 // if the dragged item is not already there, insert the item. This avoids ng-repeat dupes error
                 if (this.parent.options.allowDuplicates || this.parent.modelValue.indexOf(this.source.modelValue) < 0) {
-                  this.parent.insertItem(this.index, this.source.modelValue);
+                  //this.parent.insertItem(this.index, this.source.modelValue);
                 }
               } else if (!this.parent.options.clone) { // prevent drop inside sortables that specify options.clone = true
                 // clone the model value as well
-                this.parent.insertItem(this.index, angular.copy(this.source.modelValue));
+                //this.parent.insertItem(this.index, angular.copy(this.source.modelValue));
               }
             }
           };
@@ -793,7 +793,8 @@
               // add hidden placeholder element in original position.
               scope.itemScope.element.after(placeElement);
               // not cloning, so use the original element.
-              dragElement.append(scope.itemScope.element);
+              dragElement.append(scope.itemScope.element.clone());
+              scope.itemScope.element.detach();
             }
 
             containment.append(dragElement);
@@ -1013,7 +1014,7 @@
 
           function rollbackDragChanges() {
             if (!scope.itemScope.sortableScope.cloning) {
-              placeElement.replaceWith(scope.itemScope.element);
+              //placeHolder.replaceWith(scope.itemScope.element);
             }
             placeHolder.remove();
             dragElement.remove();
@@ -1195,7 +1196,7 @@
      * @returns {*} - index value.
      */
     $scope.index = function () {
-      return $scope.$index;
+      return $scope.$index + ($scope.sortableScope.startIndex || 0);
     };
 
     /**
