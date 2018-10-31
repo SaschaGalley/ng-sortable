@@ -1014,7 +1014,7 @@
 
           function rollbackDragChanges() {
             if (!scope.itemScope.sortableScope.cloning) {
-              //placeHolder.replaceWith(scope.itemScope.element);
+              placeHolder.replaceWith(scope.itemScope.element);
             }
             placeHolder.remove();
             dragElement.remove();
